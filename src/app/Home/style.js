@@ -28,6 +28,7 @@ export const Tab = styled.div`
   flex-direction: row;
   justify-content: space-around;
   background: ${backgroundColor};
+  position: relative;
   a {
     flex: 1;
     padding: 2px 0;
