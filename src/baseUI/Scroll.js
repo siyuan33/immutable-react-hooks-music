@@ -8,6 +8,7 @@ import React, {
 import PropTypes from "prop-types"
 import BScroll from "better-scroll"
 import styled from "styled-components"
+import { forceCheck } from "react-lazyload"
 
 // 测试 console.log开关
 const consoleLogToggleSwitch = true
@@ -111,7 +112,7 @@ Scroll.defaultProps = {
   direction: "vertical",
   click: true,
   refresh: true,
-  onScroll: null,
+  onScroll: forceCheck,
   pullUpLoading: false,
   pullDownLoading: false,
   pullUp: null,
@@ -129,8 +130,8 @@ Scroll.propTypes = {
   pullDown: PropTypes.func,
   pullUpLoading: PropTypes.bool,
   pullDownLoading: PropTypes.bool,
-  bounceTop: PropTypes.bool, //是否支持向上吸顶
-  bounceBottom: PropTypes.bool, //是否支持向上吸顶
+  bounceTop: PropTypes.bool,
+  bounceBottom: PropTypes.bool,
 }
 
 export default Scroll

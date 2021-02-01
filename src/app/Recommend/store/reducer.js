@@ -6,7 +6,7 @@ const defaultState = fromJS({
   recommendList: [],
 })
 
-// 获取 immutable 的 状态使用 get api 修改 使用 set api
+// 获取 immutable 的 状态使用 get api 修改 使用 set api 
 export default (state = defaultState, { type, data }) => {
   switch (type) {
     case actionTypes.CHANGE_BANNER:
