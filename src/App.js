@@ -2,16 +2,20 @@ import React from "react"
 import { GlobalStyle } from "./style"
 import { IconStyle } from "./assets/iconfont/iconfont"
 import { renderRoutes } from "react-router-config"
-import routes from "./routes/index.js"
+import routes from "./routes"
 import { BrowserRouter } from "react-router-dom"
+import { Provider } from "react-redux"
+import store from "@/store"
 
 function App() {
   return (
-    <BrowserRouter>
-      <GlobalStyle></GlobalStyle>
-      <IconStyle></IconStyle>
-      {renderRoutes(routes)}
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyle></GlobalStyle>
+        <IconStyle></IconStyle>
+        {renderRoutes(routes)}
+      </BrowserRouter>
+    </Provider>
   )
 }
 

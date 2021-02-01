@@ -5,11 +5,11 @@ import Recommend from "../app/Recommend"
 import Singers from "../app/Singers"
 import Rank from "../app/Rank"
 
-export default [
+const routes = [
   {
     path: "/",
     component: Home,
-    routes: [
+    children: [
       {
         path: "/",
         exact: true,
@@ -30,3 +30,4 @@ export default [
     ],
   },
 ]
+export default routes

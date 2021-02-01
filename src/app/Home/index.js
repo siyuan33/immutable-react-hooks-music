@@ -1,11 +1,12 @@
-import React from "react"
+import React, { memo } from "react"
 import { renderRoutes } from "react-router-config"
 import { Top, Tab, TabItem } from "./style"
-import { NavLink } from "react-router-dom" //利用NavLink组件进行路由跳转
+import { NavLink } from "react-router-dom"
 
 function Home(props) {
-  const { route } = props
-
+  const {
+    route: { children },
+  } = props
   return (
     <div>
       <Top>
@@ -30,9 +31,9 @@ function Home(props) {
           </TabItem>
         </NavLink>
       </Tab>
-      {renderRoutes(route.routes)}
+      {renderRoutes(children)}
     </div>
   )
 }
 
-export default React.memo(Home)
+export default memo(Home)

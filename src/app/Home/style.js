@@ -1,15 +1,21 @@
 import styled from "styled-components"
 import style from "../../assets/global-style"
 
+const backgroundColor = style["theme-color"]
+
 export const Top = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 5px 10px;
-  background: ${style["theme-color"]};
+  background: ${backgroundColor};
+
   & > span {
     line-height: 40px;
-    color: #f1f1f1;
+    color: ${(props) => {
+      console.log(props, "props")
+      return "#f1f1f1"
+    }};
     font-size: 20px;
     &.iconfont {
       font-size: 25px;
@@ -21,7 +27,7 @@ export const Tab = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background: ${style["theme-color"]};
+  background: ${backgroundColor};
   a {
     flex: 1;
     padding: 2px 0;
