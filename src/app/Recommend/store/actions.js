@@ -18,14 +18,26 @@ export const getBannerList = () => {
 
 export const getRecommendList = () => {
   return async (dispatch) => {
+    dispatch(changeLoadingStatus(true))
     const { result, code } = await getRecommendListRequest()
     if (code === 200) {
       dispatch({
         type: actionTypes.CHANGE_RECOMMEND_LIST,
         data: fromJS(result),
       })
+      dispatch(changeLoadingStatus(false))
     } else {
       console.error("推荐歌单数据传输错误")
     }
+  }
+}
+
+// 切换 loading 状态
+export const changeLoadingStatus = (b) => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CHANGE_ENTER_LOADING,
+      data: fromJS(b),
+    })
   }
 }
