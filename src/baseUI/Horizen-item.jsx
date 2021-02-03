@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, memo } from "react"
+import React, { useState, useRef, useEffect, memo, useContext } from "react"
 import styled from "styled-components"
 import Scroll from "./Scroll.js"
 import { PropTypes } from "prop-types"
@@ -9,6 +9,7 @@ const List = styled.div`
   align-items: center;
   height: 30px;
   overflow: hidden;
+  width: 200%;
   > span:first-of-type {
     display: block;
     flex: 0 0 auto;
@@ -34,7 +35,6 @@ const ListItem = styled.span`
 function Horizen(props) {
   const { list, oldVal, title } = props
   const { handleClick } = props
-
   // 加入声明
   const Category = useRef(null)
 
@@ -52,14 +52,20 @@ function Horizen(props) {
   return (
     <Scroll direction={"horizental"}>
       <div ref={Category}>
-        <List>
+        <List className={"List"}>
           <span>{title}</span>
           {list.map((item) => {
             return (
               <ListItem
                 key={item.key}
                 className={`${oldVal === item.key ? "selected" : ""}`}
-                onClick={() => handleClick(item.key)}
+                onClick={() =>
+                  handleClick({
+                    type: item.type,
+                    area: item.area,
+                    key: item.key,
+                  })
+                }
               >
                 {item.name}
               </ListItem>
