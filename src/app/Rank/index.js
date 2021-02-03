@@ -6,6 +6,7 @@ import { List, ListItem, SongList, Container } from "./style"
 import Scroll from "@/baseUI/Scroll"
 import { filterIndex, filterIdx } from "@/utils"
 import styled from "styled-components"
+import { renderRoutes } from "react-router-config"
 
 export const EnterLoading = styled.div`
   position: fixed;
@@ -37,6 +38,7 @@ function Rank(props) {
   let globalList = rankList.slice(globalStartIndex)
 
   const enterDetail = (name) => {
+    debugger
     const idx = filterIdx(name)
     if (idx === null) {
       alert("暂无相关数据")
@@ -99,7 +101,7 @@ function Rank(props) {
           ) : null}
         </div>
       </Scroll>
-      {/* {renderRoutes(props.route.routes)} */}
+      {renderRoutes(props.route.routes)}
     </Container>
   )
 }
