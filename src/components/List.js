@@ -2,7 +2,7 @@ import React, { memo } from "react"
 import { ListWrapper, ListItem, List } from "./style"
 import { getCount } from "@/utils"
 import LazyLoad from "react-lazyload"
-import { withRouter } from "react-router"
+import { withRouter } from "react-router-dom"
 
 function ListContainer(props) {
   const { recommendList } = props
