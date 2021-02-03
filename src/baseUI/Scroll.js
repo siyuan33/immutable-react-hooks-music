@@ -4,11 +4,15 @@ import React, {
   useEffect,
   useRef,
   useImperativeHandle,
+  useMemo,
 } from "react"
 import PropTypes from "prop-types"
 import BScroll from "better-scroll"
 import styled from "styled-components"
 import { forceCheck } from "react-lazyload"
+import Loading from "./Loading"
+import LoadingV2 from "./Loading-v2.jsx"
+import { debounce } from "@/utils"
 
 // 测试 console.log开关
 const consoleLogToggleSwitch = true
@@ -25,8 +29,8 @@ const Scroll = forwardRef((props, ref) => {
 
   const { direction, click, refresh, bounceTop, bounceBottom } = props
 
-  const { pullUp, pullDown, onScroll } = props
-
+  const { pullUp, pullDown, onScroll, pullUpLoading, pullDownLoading } = props
+  const { LoadingActive } = props
   // bs 实例
   useEffect(() => {
     const scroll = new BScroll(scrollContaninerRef.current, {
@@ -55,12 +59,19 @@ const Scroll = forwardRef((props, ref) => {
     }
   }, [onScroll, bScroll])
   // 上拉回调
+  const pullUpMemo = useMemo(() => {
+    return debounce(pullUp, 300)
+  }, [pullUp])
+  const pullDownMemo = useMemo(() => {
+    return debounce(pullDown, 300)
+  }, [pullDown])
+
   useEffect(() => {
     if (!bScroll || !pullUp) return
     bScroll.on("scrollEnd", () => {
       //判断是否滑动到了底部
       if (bScroll.y <= bScroll.maxScrollY) {
-        pullUp()
+        pullUpMemo()
       }
     })
     return () => {
@@ -73,7 +84,7 @@ const Scroll = forwardRef((props, ref) => {
     bScroll.on("touchEnd", (pos) => {
       //判断用户的下拉动作
       if (pos.y > 30) {
-        pullDown()
+        pullDownMemo()
       }
     })
     return () => {
@@ -101,9 +112,21 @@ const Scroll = forwardRef((props, ref) => {
     },
   }))
 
+  const PullUpdisplayStyle = pullUpLoading
+    ? { display: "" }
+    : { display: "none" }
+  const PullDowndisplayStyle = pullDownLoading
+    ? { display: "" }
+    : { display: "none" }
   return (
     <ScrollContainer ref={scrollContaninerRef}>
       {props.children}
+      {/* <div style={PullUpdisplayStyle}>
+        <Loading></Loading>
+      </div> */}
+      {/* <div style={PullDowndisplayStyle}> */}
+      {LoadingActive ? <LoadingV2></LoadingV2> : null}
+      {/* </div> */}
     </ScrollContainer>
   )
 })
@@ -120,6 +143,7 @@ Scroll.defaultProps = {
     consoleLogToggleSwitch ? console.log(scroll, "scroll") : null,
   bounceTop: true,
   bounceBottom: true,
+  LoadingActive: false,
 }
 
 Scroll.propTypes = {
@@ -132,6 +156,7 @@ Scroll.propTypes = {
   pullDownLoading: PropTypes.bool,
   bounceTop: PropTypes.bool,
   bounceBottom: PropTypes.bool,
+  LoadingActive: PropTypes.bool,
 }
 
 export default Scroll

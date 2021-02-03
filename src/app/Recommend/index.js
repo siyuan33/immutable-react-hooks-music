@@ -6,6 +6,7 @@ import Loading from "@/baseUI/Loading.js"
 import { Content } from "./style"
 import * as actions from "./store/actions.js"
 import { connect } from "react-redux"
+import { renderRoutes } from "react-router-config"
 
 function Recommend(props) {
   const { bannerList, recommendList, loadingflag } = props
@@ -27,6 +28,7 @@ function Recommend(props) {
   const recommendListJS = recommendList ? recommendList.toJS() : []
   return (
     <Content className={"Content"}>
+      {renderRoutes(props.route.children)}
       <Scroll className="list">
         <div>
           <Slider list={bannerListJS}></Slider>
