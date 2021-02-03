@@ -43,6 +43,7 @@ function Horizen(props) {
     let categoryDOM = Category.current
     let tagElems = categoryDOM.querySelectorAll("span")
     let totalWidth = 0
+     
     Array.from(tagElems).forEach((ele) => {
       totalWidth += ele.offsetWidth
     })
@@ -72,10 +73,7 @@ function Horizen(props) {
 }
 
 // 首先考虑接受的参数
-//list 为接受的列表数据
 //oldVal 为当前的 item 值
-//title 为列表左边的标题
-//handleClick 为点击不同的 item 执行的方法
 Horizen.defaultProps = {
   list: [],
   oldVal: "",
